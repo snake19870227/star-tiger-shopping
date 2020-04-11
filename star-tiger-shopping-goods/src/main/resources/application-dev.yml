@@ -1,0 +1,11 @@
+server:
+  port: 5020
+spring:
+  cloud:
+    nacos:
+      server-addr: localhost:18848
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:13316/stigershoppinggoods?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
+    username: root
+    password: 123456

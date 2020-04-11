@@ -1,0 +1,110 @@
+version: '3'
+services:
+  stiger-shopping-db-nacos:
+    build:
+      context: ./nacos
+      dockerfile: Dockerfile-db
+    image: stiger-shopping-db-nacos
+    container_name: mysql3316
+    ports:
+      - 3316:3306
+    privileged: true
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - "/Users/snake/docker/container/mysql/5.7.29/mysql3316/data:/var/lib/mysql"
+    command: [
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_unicode_ci"
+    ]
+  stiger-shopping-nacos:
+    image: nacos/nacos-server:latest
+    container_name: nacos18848
+    environment:
+      PREFER_HOST_MODE: hostname
+      MODE: standalone
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MYSQL_SERVICE_HOST: mysql3316
+      MYSQL_SERVICE_DB_NAME: nacos
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: 123456
+    volumes:
+      - /Users/snake/docker/container/nacos/1.2.1/nacos18848/logs:/home/nacos/logs
+      - ./nacos/custom.properties:/home/nacos/init.d/custom.properties
+    ports:
+      - "18848:8848"
+      - "19555:9555"
+    depends_on:
+      - stiger-shopping-db-nacos
+  stiger-shopping-db-master:
+    build:
+      context: ./database
+      dockerfile: Dockerfile-master
+    image: stiger-shopping-db-master
+    container_name: mysql13316
+    ports:
+      - 13316:3306
+    privileged: true
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - "/Users/snake/docker/container/mysql/5.7.29/mysql13316/data:/var/lib/mysql"
+    command: [
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_unicode_ci"
+    ]
+  stiger-shopping-db-slave1:
+    build:
+      context: ./database
+      dockerfile: Dockerfile-slave
+      args:
+        server_id: 2
+    image: stiger-shopping-db-slave1
+    container_name: mysql23316
+    ports:
+      - 23316:3306
+    privileged: true
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - "/Users/snake/docker/container/mysql/5.7.29/mysql23316/data:/var/lib/mysql"
+    command: [
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_unicode_ci"
+    ]
+    depends_on:
+      - stiger-shopping-db-master
+  stiger-shopping-db-slave2:
+    build:
+      context: ./database
+      dockerfile: Dockerfile-slave
+      args:
+        server_id: 3
+    image: stiger-shopping-db-slave2
+    container_name: mysql33316
+    ports:
+      - 33316:3306
+    privileged: true
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - "/Users/snake/docker/container/mysql/5.7.29/mysql33316/data:/var/lib/mysql"
+    command: [
+      "--character-set-server=utf8mb4",
+      "--collation-server=utf8mb4_unicode_ci"
+    ]
+    depends_on:
+      - stiger-shopping-db-master
+  stiger-shopping-account:
+    build:
+      context: ./star-tiger-shopping-account
+      args:
+        ACTIVE_PROFILE: docker
+    image: stiger-shopping-account
+    container_name: stigerAccount5010
+    ports:
+      - 5010:5010
+    depends_on:
+      - stiger-shopping-nacos
+      - stiger-shopping-db-master

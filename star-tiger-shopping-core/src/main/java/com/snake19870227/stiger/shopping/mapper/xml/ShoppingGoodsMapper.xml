@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snake19870227.stiger.shopping.mapper.ShoppingGoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.snake19870227.stiger.shopping.entity.po.ShoppingGoods">
+        <id column="goods_id" property="goodsId" />
+        <result column="goods_name" property="goodsName" />
+        <result column="goods_factory" property="goodsFactory" />
+        <result column="goods_content" property="goodsContent" />
+        <result column="goods_keyword" property="goodsKeyword" />
+        <result column="goods_price" property="goodsPrice" />
+        <result column="delete_flag" property="deleteFlag" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        goods_id, goods_name, goods_factory, goods_content, goods_keyword, goods_price, delete_flag
+    </sql>
+
+</mapper>

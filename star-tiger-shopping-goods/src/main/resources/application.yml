@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: shopping-goods
+  profiles:
+    include: service
+    active: dev
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false

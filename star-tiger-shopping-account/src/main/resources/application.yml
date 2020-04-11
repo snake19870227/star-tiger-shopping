@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: shopping-account
+  profiles:
+    include: service
+    active: dev
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+stiger:
+  shopping:
+    token:
+      exclude-paths:
+        - pattern: /auth/token
+          method: post
+        - pattern: /account
+          method: post

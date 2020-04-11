@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.snake19870227.stiger.shopping.mapper.ShoppingAccountMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.snake19870227.stiger.shopping.entity.po.ShoppingAccount">
+        <id column="account_id" property="accountId" />
+        <result column="account_name" property="accountName" />
+        <result column="account_password" property="accountPassword" />
+        <result column="delete_flag" property="deleteFlag" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        account_id, account_name, account_password, delete_flag
+    </sql>
+
+</mapper>
