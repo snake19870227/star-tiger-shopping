@@ -48,6 +48,7 @@
         <module>star-tiger-shopping-service</module>
         <module>star-tiger-shopping-account</module>
         <module>star-tiger-shopping-goods</module>
+        <module>star-tiger-shopping-gateway</module>
     </modules>
 
     <properties>

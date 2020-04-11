@@ -1,0 +1,26 @@
+server:
+  port: 6000
+spring:
+  application:
+    name: shopping-gateway
+  profiles:
+    include: core
+  cloud:
+    nacos:
+      server-addr: localhost:18848
+#    discovery:
+#      reactive:
+#        enabled: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: service_account
+          uri: lb://shopping-account
+          order: 0
+          predicates:
+            - Path=/account/**
+          filters:
+            - StripPrefix=1

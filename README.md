@@ -37,3 +37,9 @@ chmod u+x bin/*.sh
 ```bash
 ./bin/nacos-build.sh
 ```
+
+3. 应用模块
+    - 账户服务模块
+        ```bash
+        ./bin/account-build.sh
+        ```

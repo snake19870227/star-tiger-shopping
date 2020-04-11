@@ -2,7 +2,7 @@ spring:
   application:
     name: shopping-account
   profiles:
-    include: service
+    include: core,service
     active: dev
   cloud:
     loadbalancer:
